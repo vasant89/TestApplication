@@ -13,6 +13,7 @@ import javax.inject.Inject
 import android.util.Log
 import com.test.testapplication.extentions.isInternetAvailable
 import com.test.testapplication.extentions.showMessage
+import com.test.testapplication.webservice.PhotoService
 import com.test.testapplication.webservice.PlaceService
 import javax.inject.Singleton
 
@@ -49,14 +50,14 @@ constructor(private val context: Context) {
         .build()
 
 
-    private var retrofit: Retrofit = Retrofit.Builder()
+    private var retrofitForPhotos: Retrofit = Retrofit.Builder()
         .client(client)
         .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
         .addConverterFactory(GsonConverterFactory.create())
-        .baseUrl("https://maps.googleapis.com/maps/api/place/")
+        .baseUrl("http://private-e1b8f4-getimages.apiary-mock.com/")
         .build()
 
-    private var retrofitGoogle: Retrofit = Retrofit.Builder()
+    private var retrofitForGoogle: Retrofit = Retrofit.Builder()
         .client(client)
         .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
         .addConverterFactory(GsonConverterFactory.create())
@@ -64,8 +65,12 @@ constructor(private val context: Context) {
         .build()
 
     fun createPlaceService(): PlaceService {
-        return retrofitGoogle.create(PlaceService::class.java)
+        return retrofitForGoogle.create(PlaceService::class.java)
     }
 
+
+    fun createPhotoService():PhotoService{
+        return retrofitForPhotos.create(PhotoService::class.java)
+    }
 
 }

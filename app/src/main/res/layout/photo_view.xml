@@ -10,12 +10,19 @@
 
   </data>
 
-  <android.support.design.widget.CoordinatorLayout
-      android:layout_width="match_parent"
+  <android.support.constraint.ConstraintLayout
       android:layout_height="match_parent"
-      android:background="#efefef"
+      android:layout_width="match_parent"
       tools:context=".main.photos.PhotoView">
 
+    <com.test.testapplication.customviews.AutoFitRecyclerView
+        android:layout_height="wrap_content"
+        android:layout_width="0dp"
+        android:columnWidth="@dimen/column_width"
+        android:id="@+id/rv_photos"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
 
-  </android.support.design.widget.CoordinatorLayout>
+  </android.support.constraint.ConstraintLayout>
 </layout>

@@ -31,10 +31,14 @@
         app:layout_constraintTop_toTopOf="parent"
         android:id="@+id/tvShowList"
         android:gravity="center_vertical"
-        app:layout_constraintEnd_toEndOf="parent" app:layout_constraintBottom_toTopOf="@+id/rv_place"
-       app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintVertical_chainStyle="packed" android:layout_marginLeft="16dp"
-        android:layout_marginStart="16dp" android:layout_marginEnd="16dp" android:layout_marginRight="16dp"/>
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/rv_place"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintVertical_chainStyle="packed"
+        android:layout_marginLeft="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"/>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv_place"
@@ -43,8 +47,11 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvShowList"
-        app:layout_constraintHorizontal_bias="0.5" android:layout_marginLeft="8dp" android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp" android:layout_marginRight="8dp"
+        app:layout_constraintHorizontal_bias="0.5"
+        android:layout_marginLeft="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
         android:layout_marginTop="8dp"/>
 
   </android.support.constraint.ConstraintLayout>

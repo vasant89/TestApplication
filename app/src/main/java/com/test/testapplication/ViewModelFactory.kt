@@ -9,9 +9,13 @@ import com.test.testapplication.main.MainViewModel
 import com.test.testapplication.main.photos.PhotoView
 import com.test.testapplication.main.photos.PhotoViewModel
 import com.test.testapplication.main.searchplace.SearchPlaceViewModel
+import javax.inject.Inject
+import javax.inject.Singleton
 
-
-class ViewModelFactory(
+@Singleton
+class ViewModelFactory
+@Inject
+constructor(
     private val application: Application,
     private val repository: Repository,
     private val picasso: Picasso

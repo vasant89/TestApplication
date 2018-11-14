@@ -13,13 +13,12 @@ import javax.inject.Inject
 import android.support.design.widget.BottomSheetBehavior
 import com.test.testapplication.extentions.*
 import com.test.testapplication.main.photos.PhotoViewModel
-import android.widget.Toast
-import android.support.design.widget.NavigationView
 import android.support.v4.view.GravityCompat
 import android.support.v7.app.ActionBarDrawerToggle
 import android.view.Gravity
 import android.view.MenuItem
 import com.test.testapplication.main.photos.PhotoView
+import kotlinx.android.synthetic.main.activity_main.*
 
 
 class MainActivity : DaggerAppCompatActivity() {
@@ -79,10 +78,12 @@ class MainActivity : DaggerAppCompatActivity() {
     }
 
     private fun showSearchPlaceView() {
+        toolbar.title = getString(R.string.place_search_hint)
         replaceFragmentInActivity(searchPlaceView, R.id.contentFrame)
     }
 
     private fun showPhotoView() {
+        toolbar.title = getString(R.string.photos)
         replaceFragmentInActivity(photoView, R.id.contentFrame)
     }
 

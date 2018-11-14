@@ -1,10 +1,12 @@
 package com.test.testapplication.data.source
 
+import com.test.testapplication.webresponse.ImagesResponse
 import com.test.testapplication.webresponse.PlaceResponse
 import io.reactivex.Single
 
 
 interface DataSource {
+
     fun getPlaceDetail(
         placeId: String,
         radius: Double,
@@ -16,4 +18,7 @@ interface DataSource {
         pageToken: String,
         key: String
     ): Single<PlaceResponse>
+
+    fun getImages(): Single<ImagesResponse>
+
 }

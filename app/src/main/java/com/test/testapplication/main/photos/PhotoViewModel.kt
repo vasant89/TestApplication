@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.app.Application
 import android.arch.lifecycle.AndroidViewModel
 import android.content.Context
+import android.databinding.ObservableArrayList
 import android.databinding.ObservableBoolean
 import android.databinding.ObservableField
 import android.util.Log
@@ -39,30 +40,15 @@ class PhotoViewModel(
         showToastMessage.value = message
     }
 
-    val showPlaceListEvent = SingleLiveEvent<Void>()
-
-    fun showList() {
-        showPlaceListEvent.call()
-    }
+    val showPhotosEvent = SingleLiveEvent<List<String>>()
 
     fun start() {
-
+        getPhotos()
     }
 
-    var nextPageToken: String? = null
 
-    val place = ObservableField<String>()
-
-    val replacePlacesEvent = SingleLiveEvent<List<Result>>()
-    val addPlacesEvent = SingleLiveEvent<List<Result>>()
-
-    fun getPlaceDetails(latLng: LatLng, radius: Double) {
-        val location = "${latLng.latitude},${latLng.longitude}"
-        this.repository.getPlaceDetail(
-            location,
-            radius,
-            context.getString(R.string.google_maps_key)
-        )
+    private fun getPhotos() {
+        this.repository.getImages()
             .subscribeOn(Schedulers.io())
             .doOnSubscribe { isDataLoading.value = true }
             .observeOn(AndroidSchedulers.mainThread())
@@ -74,32 +60,7 @@ class PhotoViewModel(
                 isDataLoadingError.set(false)
                 isDataLoading.value = false
             }.subscribe({
-                nextPageToken = it.nextPageToken
-                it.results?.let { results ->
-                    replacePlacesEvent.value = results
-                }
-            }, {
-                Log.e(TAG, it.message)
-            })
-    }
-
-    fun getPlaceDetailNextPage() {
-        this.repository.getPlaceDetailNextPage(nextPageToken!!, context.getString(R.string.google_maps_key))
-            .subscribeOn(Schedulers.io())
-            .doOnSubscribe {isLoading.set(true)}
-            .observeOn(AndroidSchedulers.mainThread())
-            .doOnError {
-                isDataLoadingError.set(true)
-                isLoading.set(false)
-            }
-            .doOnSuccess {
-                isDataLoadingError.set(false)
-                isLoading.set(false)
-            }.subscribe({
-                nextPageToken = it.nextPageToken
-                it.results?.let { results ->
-                    addPlacesEvent.value = results
-                }
+               showPhotosEvent.value = it.pugs
             }, {
                 Log.e(TAG, it.message)
             })

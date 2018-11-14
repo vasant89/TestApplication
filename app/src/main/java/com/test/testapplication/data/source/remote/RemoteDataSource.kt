@@ -2,6 +2,7 @@ package com.test.testapplication.data.source.remote
 
 import com.test.testapplication.data.source.DataSource
 import com.test.testapplication.retrofit.RetrofitServiceFactory
+import com.test.testapplication.webresponse.ImagesResponse
 import com.test.testapplication.webresponse.PlaceResponse
 import io.reactivex.Single
 import javax.inject.Inject
@@ -20,6 +21,12 @@ constructor(private val retrofitServiceFactory: RetrofitServiceFactory) : DataSo
 
     override fun getPlaceDetailNextPage(pageToken: String, key: String): Single<PlaceResponse> {
         return placeService.getPlaceDetailNextPage(pageToken, key)
+    }
+
+    private val photoService = retrofitServiceFactory.createPhotoService()
+
+    override fun getImages(): Single<ImagesResponse> {
+        return photoService.getImages()
     }
 
     companion object {

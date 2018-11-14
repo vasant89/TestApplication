@@ -3,6 +3,7 @@ package com.test.testapplication.data.source
 
 import com.test.testapplication.di.scope.Local
 import com.test.testapplication.di.scope.Remote
+import com.test.testapplication.webresponse.ImagesResponse
 import com.test.testapplication.webresponse.PlaceResponse
 import io.reactivex.Single
 import javax.inject.Inject
@@ -25,4 +26,7 @@ constructor(
         return remoteDataSource.getPlaceDetailNextPage(pageToken, key)
     }
 
+    override fun getImages(): Single<ImagesResponse> {
+        return remoteDataSource.getImages()
+    }
 }
