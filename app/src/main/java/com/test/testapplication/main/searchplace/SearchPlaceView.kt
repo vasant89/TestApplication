@@ -15,6 +15,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
+import android.widget.LinearLayout
 import android.widget.Toast
 import com.google.android.gms.common.ConnectionResult
 import com.google.android.gms.common.api.GoogleApiClient
@@ -38,7 +39,7 @@ import com.test.testapplication.location.PermissionHelper
 import com.test.testapplication.main.MainActivity
 import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.bottom_sheet.view.*
-import kotlinx.android.synthetic.main.content_map.view.*
+import kotlinx.android.synthetic.main.content_search_place.view.*
 import javax.inject.Inject
 
 @ActivityScoped
@@ -76,7 +77,7 @@ constructor() : DaggerFragment(),
         mBinding = SearchPlaceViewBinding.inflate(inflater, container, false).apply {
             this.viewModel = (activity as MainActivity).obtainSearchPlaceViewModel()
 
-            this.root.rvPlace.apply {
+            this.bottomSheet.rvPlace.apply {
                 layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
                 itemAnimator = DefaultItemAnimator()
                 adapter = PlaceRvAdapter(viewModel!!.picasso)
@@ -87,7 +88,7 @@ constructor() : DaggerFragment(),
         (childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment)
             .getMapAsync(this)
 
-        sheetBehavior = BottomSheetBehavior.from(mBinding.root.bottom_sheet)
+        sheetBehavior = BottomSheetBehavior.from(mBinding.bottomSheet.myPlaceList)
 
         sheetBehavior?.setBottomSheetCallback(object : BottomSheetBehavior.BottomSheetCallback() {
             override fun onStateChanged(bottomSheet: View, newState: Int) {
@@ -134,7 +135,7 @@ constructor() : DaggerFragment(),
                 }
             })
 
-            mBinding.root.rvPlace.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            mBinding.bottomSheet.rvPlace.addOnScrollListener(object : RecyclerView.OnScrollListener() {
                 override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                     super.onScrolled(recyclerView, dx, dy)
                     val layoutManager = (recyclerView.layoutManager as LinearLayoutManager)
@@ -150,12 +151,12 @@ constructor() : DaggerFragment(),
             })
 
             replacePlacesEvent.observe(this@SearchPlaceView, Observer {
-                (mBinding.root.rvPlace.adapter as PlaceRvAdapter).apply {
+                (mBinding.bottomSheet.rvPlace.adapter as PlaceRvAdapter).apply {
                     replaceList(it!!)
                 }
             })
             addPlacesEvent.observe(this@SearchPlaceView, Observer {
-                (mBinding.root.rvPlace.adapter as PlaceRvAdapter).apply {
+                (mBinding.bottomSheet.rvPlace.adapter as PlaceRvAdapter).apply {
                     addList(it!!)
                 }
             })
@@ -172,11 +173,17 @@ constructor() : DaggerFragment(),
 
     override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap
+
+        mBinding.viewModel?.apply {
+            latLng?.let {
+                showLocationOnMap(it)
+            }
+        }
     }
 
     override fun onConnected(p0: Bundle?) {
         Log.e(TAG, "Connected")
-        mBinding.root.tvPlaceSearch.apply {
+        mBinding.contentSearchPlace.tvSearchPlace.apply {
 
             threshold = 3
 
@@ -257,28 +264,29 @@ constructor() : DaggerFragment(),
 
     private val mMarkers: MutableList<Marker> = mutableListOf()
 
-    private fun showLocationOnMap(latLng: LatLng) {
+    private fun showLocationOnMap(latLng: LatLng?) {
         // 5 mile == 8046.72 mtr
-        mBinding.viewModel?.getPlaceDetails(latLng, 8046.72)
+        latLng?.let {
+            mBinding.viewModel?.getPlaceDetails(it)
 
-        mMap?.apply {
+            mMap?.apply {
 
-            mMarkers.forEach {
-                it.remove()
-            }
-
-            mLastLocation?.let {
+                mMarkers.forEach { marker ->
+                    marker.remove()
+                }
 
                 mMarkers.add(
                     addMarker(
                         MarkerOptions()
-                            .position(latLng)
+                            .position(it)
                     )
                 )
-                moveCamera(CameraUpdateFactory.newLatLng(latLng))
-                animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 17.0f))
+                moveCamera(CameraUpdateFactory.newLatLng(it))
+                animateCamera(CameraUpdateFactory.newLatLngZoom(it, 17.0f))
+
             }
         }
+
     }
 
     override fun onConnectionSuspended(p0: Int) {

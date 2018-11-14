@@ -1,4 +1,4 @@
-package com.test.testapplication.main.searchplace
+package com.test.testapplication.main.photos
 
 import android.annotation.SuppressLint
 import android.app.Application
@@ -7,17 +7,17 @@ import android.content.Context
 import android.databinding.ObservableBoolean
 import android.databinding.ObservableField
 import android.util.Log
-import android.widget.Toast
 import com.google.android.gms.maps.model.LatLng
 import com.squareup.picasso.Picasso
 import com.test.testapplication.R
 import com.test.testapplication.SingleLiveEvent
 import com.test.testapplication.data.source.Repository
+import com.test.testapplication.main.searchplace.SearchPlaceViewModel
 import com.test.testapplication.model.Result
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
-class SearchPlaceViewModel(
+class PhotoViewModel(
     context: Application,
     private val repository: Repository,
     val picasso: Picasso
@@ -45,10 +45,8 @@ class SearchPlaceViewModel(
         showPlaceListEvent.call()
     }
 
-
-    var latLng: LatLng? = null
-
     fun start() {
+
     }
 
     var nextPageToken: String? = null
@@ -58,12 +56,11 @@ class SearchPlaceViewModel(
     val replacePlacesEvent = SingleLiveEvent<List<Result>>()
     val addPlacesEvent = SingleLiveEvent<List<Result>>()
 
-    fun getPlaceDetails(latLng: LatLng) {
-        this.latLng = latLng
+    fun getPlaceDetails(latLng: LatLng, radius: Double) {
         val location = "${latLng.latitude},${latLng.longitude}"
         this.repository.getPlaceDetail(
             location,
-            8046.72,
+            radius,
             context.getString(R.string.google_maps_key)
         )
             .subscribeOn(Schedulers.io())
@@ -89,7 +86,7 @@ class SearchPlaceViewModel(
     fun getPlaceDetailNextPage() {
         this.repository.getPlaceDetailNextPage(nextPageToken!!, context.getString(R.string.google_maps_key))
             .subscribeOn(Schedulers.io())
-            .doOnSubscribe { isLoading.set(true) }
+            .doOnSubscribe {isLoading.set(true)}
             .observeOn(AndroidSchedulers.mainThread())
             .doOnError {
                 isDataLoadingError.set(true)
@@ -109,6 +106,6 @@ class SearchPlaceViewModel(
     }
 
     companion object {
-        private val TAG = SearchPlaceViewModel::class.java.simpleName
+        private val TAG = PhotoViewModel::class.java.simpleName
     }
 }

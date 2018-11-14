@@ -6,7 +6,7 @@
 
     <variable
         name="viewModel"
-        type="com.test.testapplication.main.searchplace.SearchPlaceViewModel"/>
+        type="com.test.testapplication.main.photos.PhotoViewModel"/>
 
   </data>
 
@@ -14,18 +14,8 @@
       android:layout_width="match_parent"
       android:layout_height="match_parent"
       android:background="#efefef"
-      tools:context=".main.searchplace.SearchPlaceView">
+      tools:context=".main.photos.PhotoView">
 
-    <include
-        android:id="@+id/content_search_place"
-        layout="@layout/content_search_place"
-             app:viewModel="@{viewModel}"/>
-
-    <!-- Adding bottom sheet after main content -->
-    <include
-        android:id="@+id/bottom_sheet"
-        layout="@layout/bottom_sheet"
-             app:viewModel="@{viewModel}"/>
 
   </android.support.design.widget.CoordinatorLayout>
 </layout>

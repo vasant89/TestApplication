@@ -4,4 +4,7 @@
   <string name="grant_permission_get_current_location">Grant permission to get current location.</string>
   <string name="place_search_hint">Search Place</string>
   <string name="show_nearby_place_list">Show Nearby Place List</string>
+  <string name="photos">Photos</string>
+  <string name="open">Open</string>
+  <string name="close">close</string>
 </resources>

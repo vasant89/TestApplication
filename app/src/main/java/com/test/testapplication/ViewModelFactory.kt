@@ -6,6 +6,8 @@ import android.arch.lifecycle.ViewModelProvider
 import com.squareup.picasso.Picasso
 import com.test.testapplication.data.source.Repository
 import com.test.testapplication.main.MainViewModel
+import com.test.testapplication.main.photos.PhotoView
+import com.test.testapplication.main.photos.PhotoViewModel
 import com.test.testapplication.main.searchplace.SearchPlaceViewModel
 
 
@@ -22,6 +24,8 @@ class ViewModelFactory(
                     MainViewModel(application, picasso)
                 isAssignableFrom(SearchPlaceViewModel::class.java) ->
                     SearchPlaceViewModel(application, repository, picasso)
+                isAssignableFrom(PhotoViewModel::class.java) ->
+                    PhotoViewModel(application, repository, picasso)
                 else ->
                     throw IllegalArgumentException("Unknown ViewModel class: ${modelClass.name}")
             }

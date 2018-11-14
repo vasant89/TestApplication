@@ -15,6 +15,7 @@
       android:layout_height="match_parent"
       app:layout_behavior="@string/appbar_scrolling_view_behavior"
       tools:context=".main.MainActivity"
+      android:id="@+id/content_search_place"
       tools:showIn="@layout/activity_main">
 
     <fragment
@@ -25,7 +26,7 @@
         android:name="com.google.android.gms.maps.SupportMapFragment"/>
 
     <android.support.v7.widget.AppCompatAutoCompleteTextView
-        android:id="@+id/tvPlaceSearch"
+        android:id="@+id/tv_search_place"
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:layout_margin="8dp"
