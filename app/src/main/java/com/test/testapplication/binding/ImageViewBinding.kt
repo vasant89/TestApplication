@@ -21,4 +21,5 @@ object ImageViewBinding {
                 .into(imageView)
         }
     }
+
 }
