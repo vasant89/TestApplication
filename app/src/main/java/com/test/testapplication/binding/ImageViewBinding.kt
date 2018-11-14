@@ -21,16 +21,4 @@ object ImageViewBinding {
                 .into(imageView)
         }
     }
-    @BindingAdapter("thumbnail", "picasso")
-    @JvmStatic
-    fun showThumbnail(imageView: ImageView, imageUrl: String?, picasso: Picasso) {
-        Log.e(TAG, imageUrl.toString())
-        if (!imageUrl.isNullOrEmpty()) {
-            picasso.setIndicatorsEnabled(false)
-            picasso.load(imageUrl)
-                .resize(100,100)
-                .centerInside()
-                .into(imageView)
-        }
-    }
 }
