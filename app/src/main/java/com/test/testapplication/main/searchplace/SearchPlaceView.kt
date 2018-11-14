@@ -29,6 +29,7 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.LatLngBounds
 import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
+import com.squareup.picasso.Picasso
 import com.test.testapplication.R
 import com.test.testapplication.adapters.PlaceAutoCompleteAdapter
 import com.test.testapplication.adapters.PlaceRvAdapter
@@ -50,6 +51,8 @@ constructor() : DaggerFragment(),
     GoogleApiClient.ConnectionCallbacks,
     GoogleApiClient.OnConnectionFailedListener {
 
+    @Inject
+    lateinit var picasso: Picasso
 
     lateinit var mBinding: SearchPlaceViewBinding
     private var mMap: GoogleMap? = null
@@ -80,7 +83,7 @@ constructor() : DaggerFragment(),
             this.bottomSheet.rvPlace.apply {
                 layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
                 itemAnimator = DefaultItemAnimator()
-                adapter = PlaceRvAdapter(viewModel!!.picasso)
+                adapter = PlaceRvAdapter(picasso)
             }
 
         }
@@ -96,9 +99,11 @@ constructor() : DaggerFragment(),
                     BottomSheetBehavior.STATE_HIDDEN -> {
                     }
                     BottomSheetBehavior.STATE_EXPANDED -> {
+                        activity?.title = getString(R.string.nearby_place)
                         mBinding.root.tvShowList.visibility = View.GONE
                     }
                     BottomSheetBehavior.STATE_COLLAPSED -> {
+                        activity?.title = getString(R.string.place_search_hint)
                         mBinding.root.tvShowList.visibility = View.VISIBLE
                     }
                     BottomSheetBehavior.STATE_DRAGGING -> {

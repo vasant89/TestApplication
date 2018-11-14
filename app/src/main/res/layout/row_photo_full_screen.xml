@@ -1,28 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto">
 
   <data>
 
     <variable
-        name="viewModel"
-        type="com.test.testapplication.main.photos.PhotoViewModel"/>
+        name="photoUrl"
+        type="String"/>
+
+    <variable
+        name="picasso"
+        type="com.squareup.picasso.Picasso"/>
 
   </data>
 
   <android.support.constraint.ConstraintLayout
-      android:layout_height="match_parent"
       android:layout_width="match_parent"
-      tools:context=".main.photos.PhotoView">
+      android:layout_height="match_parent">
 
-    <GridView
-        android:id="@+id/gr_photos"
+    <com.test.testapplication.customviews.TouchImageView
+        android:id="@+id/iv_photo"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:numColumns="auto_fit"
-        android:gravity="center"
-        android:stretchMode="columnWidth"
-        android:background="#ffffff"
+        app:imageUrl="@{photoUrl}"
+        app:picasso="@{picasso}"
+        android:scaleType="fitCenter"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

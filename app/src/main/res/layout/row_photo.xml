@@ -23,10 +23,18 @@
         android:adjustViewBounds="true"
         android:scaleType="centerCrop"
         app:imageUrl="@{photoUrl}"
-        app:picasso="@{picasso}" android:layout_alignParentStart="true" android:layout_marginLeft="0dp"
-        android:layout_marginStart="0dp" android:layout_alignParentLeft="true" android:layout_marginTop="0dp"
-        android:layout_alignParentTop="true" android:layout_alignParentBottom="true" android:layout_marginBottom="0dp"
-        android:layout_alignParentEnd="true" android:layout_alignParentRight="true" android:layout_marginRight="0dp"
+        app:picasso="@{picasso}"
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="0dp"
+        android:layout_marginStart="0dp"
+        android:layout_alignParentLeft="true"
+        android:layout_marginTop="0dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="0dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="0dp"
         android:layout_marginEnd="0dp"/>
   </com.test.testapplication.customviews.SquareLayout>
 </layout>
