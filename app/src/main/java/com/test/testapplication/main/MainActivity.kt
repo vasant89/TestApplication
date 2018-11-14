@@ -15,6 +15,7 @@ import com.test.testapplication.extentions.*
 import com.test.testapplication.main.photos.PhotoViewModel
 import android.widget.Toast
 import android.support.design.widget.NavigationView
+import android.support.v4.view.GravityCompat
 import android.support.v7.app.ActionBarDrawerToggle
 import android.view.Gravity
 import android.view.MenuItem
@@ -72,17 +73,21 @@ class MainActivity : DaggerAppCompatActivity() {
                     showPhotoView()
                 }
             }
-            mBinding.drawerLayout.closeDrawer(Gravity.START)
+            closeDrawer()
             true
         }
     }
 
-    fun showSearchPlaceView() {
+    private fun showSearchPlaceView() {
         replaceFragmentInActivity(searchPlaceView, R.id.contentFrame)
     }
 
-    fun showPhotoView() {
+    private fun showPhotoView() {
         replaceFragmentInActivity(photoView, R.id.contentFrame)
+    }
+
+    fun closeDrawer() {
+        mBinding.drawerLayout.closeDrawer(Gravity.START)
     }
 
     override fun onPostCreate(savedInstanceState: Bundle?) {
@@ -110,10 +115,18 @@ class MainActivity : DaggerAppCompatActivity() {
 
 
     override fun onBackPressed() {
-        if (searchPlaceView.isAdded && searchPlaceView.sheetBehavior != null && searchPlaceView.sheetBehavior!!.state == BottomSheetBehavior.STATE_EXPANDED) {
-            searchPlaceView.sheetBehavior!!.state = BottomSheetBehavior.STATE_COLLAPSED
-        } else {
-            showActivityClosingDialog()
+        when {
+            mBinding.drawerLayout.isDrawerOpen(GravityCompat.START) -> {
+                closeDrawer()
+            }
+            searchPlaceView.isAdded
+                    && searchPlaceView.sheetBehavior != null
+                    && searchPlaceView.sheetBehavior!!.state == BottomSheetBehavior.STATE_EXPANDED -> {
+                searchPlaceView.sheetBehavior!!.state = BottomSheetBehavior.STATE_COLLAPSED
+            }
+            else -> {
+                showActivityClosingDialog()
+            }
         }
     }
 
