@@ -5,8 +5,8 @@ import android.os.Bundle
 import com.test.testapplication.R
 import com.test.testapplication.ViewModelFactory
 import com.test.testapplication.databinding.ActivityMainBinding
-import com.test.testapplication.main.map.MapView
-import com.test.testapplication.main.map.MapViewModel
+import com.test.testapplication.main.searchplace.SearchPlaceView
+import com.test.testapplication.main.searchplace.SearchPlaceViewModel
 import dagger.android.support.DaggerAppCompatActivity
 import javax.inject.Inject
 import android.support.design.widget.BottomSheetBehavior
@@ -20,7 +20,7 @@ class MainActivity : DaggerAppCompatActivity() {
     lateinit var mBinding: ActivityMainBinding
 
     @Inject
-    lateinit var mapView: MapView
+    lateinit var mapView: SearchPlaceView
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -53,5 +53,5 @@ class MainActivity : DaggerAppCompatActivity() {
     }
 
     fun obtainMainViewModel() = obtainViewModel(viewModelFactory, MainViewModel::class.java)
-    fun obtainMapViewModel() = obtainViewModel(viewModelFactory, MapViewModel::class.java)
+    fun obtainSearchPlaceViewModel() = obtainViewModel(viewModelFactory, SearchPlaceViewModel::class.java)
 }

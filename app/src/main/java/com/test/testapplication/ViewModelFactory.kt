@@ -4,10 +4,9 @@ import android.app.Application
 import android.arch.lifecycle.ViewModel
 import android.arch.lifecycle.ViewModelProvider
 import com.squareup.picasso.Picasso
-import com.google.android.gms.common.api.GoogleApiClient
 import com.test.testapplication.data.source.Repository
 import com.test.testapplication.main.MainViewModel
-import com.test.testapplication.main.map.MapViewModel
+import com.test.testapplication.main.searchplace.SearchPlaceViewModel
 
 
 class ViewModelFactory(
@@ -21,8 +20,8 @@ class ViewModelFactory(
             when {
                 isAssignableFrom(MainViewModel::class.java) ->
                     MainViewModel(application, picasso)
-                isAssignableFrom(MapViewModel::class.java) ->
-                    MapViewModel(application, repository, picasso)
+                isAssignableFrom(SearchPlaceViewModel::class.java) ->
+                    SearchPlaceViewModel(application, repository, picasso)
                 else ->
                     throw IllegalArgumentException("Unknown ViewModel class: ${modelClass.name}")
             }

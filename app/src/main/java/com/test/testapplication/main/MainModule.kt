@@ -2,7 +2,7 @@ package com.test.testapplication.main
 
 import com.kaopiz.kprogresshud.KProgressHUD
 import com.test.testapplication.di.scope.FragmentScoped
-import com.test.testapplication.main.map.MapView
+import com.test.testapplication.main.searchplace.SearchPlaceView
 import dagger.Module
 import dagger.Provides
 import dagger.android.ContributesAndroidInjector
@@ -13,7 +13,7 @@ abstract class MainModule {
 
     @FragmentScoped
     @ContributesAndroidInjector
-    internal abstract fun mainView(): MapView
+    internal abstract fun mainView(): SearchPlaceView
 
 
     @Module

@@ -1,4 +1,4 @@
-package com.test.testapplication.main.map
+package com.test.testapplication.main.searchplace
 
 import android.Manifest
 import android.annotation.SuppressLint
@@ -31,7 +31,7 @@ import com.google.android.gms.maps.model.MarkerOptions
 import com.test.testapplication.R
 import com.test.testapplication.adapters.PlaceAutoCompleteAdapter
 import com.test.testapplication.adapters.PlaceRvAdapter
-import com.test.testapplication.databinding.MapViewBinding
+import com.test.testapplication.databinding.SearchPlaceViewBinding
 import com.test.testapplication.di.scope.ActivityScoped
 import com.test.testapplication.extentions.hideKeyBoard
 import com.test.testapplication.location.PermissionHelper
@@ -42,7 +42,7 @@ import kotlinx.android.synthetic.main.content_map.view.*
 import javax.inject.Inject
 
 @ActivityScoped
-class MapView
+class SearchPlaceView
 @Inject
 constructor() : DaggerFragment(),
     OnMapReadyCallback,
@@ -50,7 +50,7 @@ constructor() : DaggerFragment(),
     GoogleApiClient.OnConnectionFailedListener {
 
 
-    lateinit var mBinding: MapViewBinding
+    lateinit var mBinding: SearchPlaceViewBinding
     private var mMap: GoogleMap? = null
     var sheetBehavior: BottomSheetBehavior<*>? = null
     private var googleApiClient: GoogleApiClient? = null
@@ -73,8 +73,8 @@ constructor() : DaggerFragment(),
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        mBinding = MapViewBinding.inflate(inflater, container, false).apply {
-            this.viewModel = (activity as MainActivity).obtainMapViewModel()
+        mBinding = SearchPlaceViewBinding.inflate(inflater, container, false).apply {
+            this.viewModel = (activity as MainActivity).obtainSearchPlaceViewModel()
 
             this.root.rvPlace.apply {
                 layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
@@ -120,11 +120,11 @@ constructor() : DaggerFragment(),
         mBinding.viewModel?.apply {
             start()
 
-            showToastMessage.observe(this@MapView, Observer {
+            showToastMessage.observe(this@SearchPlaceView, Observer {
                 Toast.makeText(context, "$it", Toast.LENGTH_LONG).show()
             })
 
-            showPlaceListEvent.observe(this@MapView, Observer {
+            showPlaceListEvent.observe(this@SearchPlaceView, Observer {
                 sheetBehavior?.apply {
                     state = if (state != BottomSheetBehavior.STATE_EXPANDED) {
                         BottomSheetBehavior.STATE_EXPANDED
@@ -149,12 +149,12 @@ constructor() : DaggerFragment(),
                 }
             })
 
-            replacePlacesEvent.observe(this@MapView, Observer {
+            replacePlacesEvent.observe(this@SearchPlaceView, Observer {
                 (mBinding.root.rvPlace.adapter as PlaceRvAdapter).apply {
                     replaceList(it!!)
                 }
             })
-            addPlacesEvent.observe(this@MapView, Observer {
+            addPlacesEvent.observe(this@SearchPlaceView, Observer {
                 (mBinding.root.rvPlace.adapter as PlaceRvAdapter).apply {
                     addList(it!!)
                 }
@@ -290,6 +290,6 @@ constructor() : DaggerFragment(),
     }
 
     companion object {
-        private val TAG = MapView::class.java.simpleName
+        private val TAG = SearchPlaceView::class.java.simpleName
     }
 }

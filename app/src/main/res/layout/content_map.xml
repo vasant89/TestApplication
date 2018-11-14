@@ -7,7 +7,7 @@
   <data>
     <variable
         name="viewModel"
-        type="com.test.testapplication.main.map.MapViewModel"/>
+        type="com.test.testapplication.main.searchplace.SearchPlaceViewModel"/>
   </data>
 
   <android.support.constraint.ConstraintLayout
@@ -21,7 +21,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/map"
-        tools:context=".main.map.MapView"
+        tools:context=".main.searchplace.SearchPlaceView"
         android:name="com.google.android.gms.maps.SupportMapFragment"/>
 
     <android.support.v7.widget.AppCompatAutoCompleteTextView

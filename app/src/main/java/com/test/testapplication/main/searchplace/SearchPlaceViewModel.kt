@@ -1,4 +1,4 @@
-package com.test.testapplication.main.map
+package com.test.testapplication.main.searchplace
 
 import android.annotation.SuppressLint
 import android.app.Application
@@ -16,7 +16,7 @@ import com.test.testapplication.model.Result
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
-class MapViewModel(
+class SearchPlaceViewModel(
     context: Application,
     private val repository: Repository,
     val picasso: Picasso
@@ -105,6 +105,6 @@ class MapViewModel(
     }
 
     companion object {
-        private val TAG = MapViewModel::class.java.simpleName
+        private val TAG = SearchPlaceViewModel::class.java.simpleName
     }
 }

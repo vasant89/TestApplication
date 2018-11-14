@@ -6,7 +6,7 @@
 
     <variable
         name="viewModel"
-        type="com.test.testapplication.main.map.MapViewModel"/>
+        type="com.test.testapplication.main.searchplace.SearchPlaceViewModel"/>
 
   </data>
 
@@ -14,7 +14,7 @@
       android:layout_width="match_parent"
       android:layout_height="match_parent"
       android:background="#efefef"
-      tools:context=".main.map.MapView">
+      tools:context=".main.searchplace.SearchPlaceView">
 
     <include layout="@layout/content_map"
              app:viewModel="@{viewModel}"/>
