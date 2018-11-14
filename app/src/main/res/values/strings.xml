@@ -1,0 +1,7 @@
+<resources>
+  <string name="app_name">TestApplication</string>
+  <string name="title_activity_maps">Map</string>
+  <string name="grant_permission_get_current_location">Grant permission to get current location.</string>
+  <string name="place_search_hint">Search Place</string>
+  <string name="show_nearby_place_list">Show Nearby Place List</string>
+</resources>

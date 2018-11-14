@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+  <data>
+
+    <variable
+        name="result"
+        type="com.test.testapplication.model.Result"/>
+    <variable
+        name="picasso"
+        type="com.squareup.picasso.Picasso"/>
+  </data>
+
+  <android.support.constraint.ConstraintLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:minHeight="88dp">
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@{result.name}"
+        tools:text="Novotel Sydney on Darling Harbour"
+        android:ellipsize="end"
+        android:textSize="16sp"
+        android:maxLines="1"
+        android:gravity="center_vertical"
+        android:layout_marginTop="8dp" app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginEnd="8dp" app:layout_constraintEnd_toEndOf="parent" android:layout_marginRight="8dp"
+        app:layout_constraintStart_toEndOf="@+id/imageView" android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp" android:textColor="@color/place_autocomplete_prediction_primary_text"
+        android:id="@+id/textView"/>
+
+    <ImageView
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        app:srcCompat="@android:drawable/ic_menu_myplaces"
+        android:id="@+id/imageView"
+        android:layout_marginTop="8dp"
+        app:imageUrl="@{result.icon}"
+        app:picasso="@{picasso}"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent" android:layout_marginLeft="8dp" android:layout_marginStart="8dp"/>
+
+    <RatingBar
+        android:id="@+id/ratingBar"
+        app:rating="@{result.rating}"
+        app:layout_constraintStart_toEndOf="@+id/imageView"
+        android:layout_marginLeft="8dp"
+        android:layout_marginStart="8dp"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView"
+        style="?android:attr/ratingBarStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:isIndicator="true"
+        android:numStars="5"
+        android:stepSize="0.1"/>
+
+  </android.support.constraint.ConstraintLayout>
+
+</layout>
