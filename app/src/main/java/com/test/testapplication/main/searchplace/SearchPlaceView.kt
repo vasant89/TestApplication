@@ -79,13 +79,12 @@ constructor() : DaggerFragment(),
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         mBinding = SearchPlaceViewBinding.inflate(inflater, container, false).apply {
             this.viewModel = (activity as MainActivity).obtainSearchPlaceViewModel()
-
-            this.bottomSheet.rvPlace.apply {
-                layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
-                itemAnimator = DefaultItemAnimator()
-                adapter = PlaceRvAdapter(picasso)
+            bottomSheet.apply {
+                val manager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
+                rvPlace.layoutManager = manager
+                rvPlace.itemAnimator = DefaultItemAnimator()
+                rvPlace.adapter = PlaceRvAdapter(picasso)
             }
-
         }
 
         (childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment)
@@ -124,6 +123,7 @@ constructor() : DaggerFragment(),
         super.onActivityCreated(savedInstanceState)
 
         mBinding.viewModel?.apply {
+
             start()
 
             showToastMessage.observe(this@SearchPlaceView, Observer {
@@ -140,6 +140,7 @@ constructor() : DaggerFragment(),
                 }
             })
 
+
             mBinding.bottomSheet.rvPlace.addOnScrollListener(object : RecyclerView.OnScrollListener() {
                 override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                     super.onScrolled(recyclerView, dx, dy)
@@ -149,6 +150,9 @@ constructor() : DaggerFragment(),
                     val firstVisibleItemPosition = layoutManager.findFirstVisibleItemPosition()
                     if (!isLoading.get() && !nextPageToken.isNullOrEmpty()) {
                         if (visibleItemCount + firstVisibleItemPosition >= totalItemCount && firstVisibleItemPosition >= 0) {
+                            (mBinding.bottomSheet.rvPlace.adapter as PlaceRvAdapter).apply {
+                                addFooter()
+                            }
                             getPlaceDetailNextPage()
                         }
                     }
@@ -160,6 +164,7 @@ constructor() : DaggerFragment(),
                     replaceList(it!!)
                 }
             })
+
             addPlacesEvent.observe(this@SearchPlaceView, Observer {
                 (mBinding.bottomSheet.rvPlace.adapter as PlaceRvAdapter).apply {
                     addList(it!!)
@@ -168,6 +173,7 @@ constructor() : DaggerFragment(),
 
         }
     }
+
 
     var mLocationRequest: LocationRequest? = null
     var mLastLocation: Location? = null
@@ -252,10 +258,11 @@ constructor() : DaggerFragment(),
             object : LocationCallback() {
                 override fun onLocationResult(locationResult: LocationResult?) {
                     super.onLocationResult(locationResult)
-                    mLastLocation = locationResult?.lastLocation
-                    if (showCurrentLocation) {
+                    if (showCurrentLocation && mLastLocation == null) {
+                        mLastLocation = locationResult?.lastLocation
                         showLocationOnMap(LatLng(mLastLocation!!.latitude, mLastLocation!!.longitude))
                     }
+
                     Log.e(
                         TAG,
                         mLastLocation!!.latitude.toString()
