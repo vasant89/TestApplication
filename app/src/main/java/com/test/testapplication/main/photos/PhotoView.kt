@@ -32,8 +32,6 @@ constructor() : DaggerFragment() {
     @Inject
     lateinit var kProgressHUD: KProgressHUD
 
-    @Inject
-    lateinit var picasso: Picasso
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         mBinding = PhotoViewBinding.inflate(inflater, container, false).apply {

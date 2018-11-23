@@ -42,7 +42,7 @@
         android:inputType="textCapSentences"
         android:textSize="16sp"
         android:text="@={viewModel.place}"
-        android:background="@drawable/search_text_background"
+        android:background="@drawable/search_drawable"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

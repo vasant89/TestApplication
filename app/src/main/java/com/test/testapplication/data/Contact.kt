@@ -8,8 +8,12 @@ import com.google.gson.annotations.SerializedName
 
 @Entity
 data class Contact(
-    var name: String? = "",
-    var mobile: String? = ""
+    var image: String = "",
+    var name: String = "",
+    var firstName: String = "",
+    var lastName: String = "",
+    var phone: String = "",
+    var isEmergencyContact: Boolean = false
 ) {
 
     @PrimaryKey(autoGenerate = true)

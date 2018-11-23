@@ -17,6 +17,8 @@ import android.support.v4.view.GravityCompat
 import android.support.v7.app.ActionBarDrawerToggle
 import android.view.Gravity
 import android.view.MenuItem
+import com.test.testapplication.main.contacts.AllContactsView
+import com.test.testapplication.main.contacts.AllContactsViewModel
 import com.test.testapplication.main.photos.PhotoView
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -33,6 +35,9 @@ class MainActivity : DaggerAppCompatActivity() {
 
     @Inject
     lateinit var photoView: PhotoView
+
+    @Inject
+    lateinit var allContactsView: AllContactsView
 
     private var drawerToggle: ActionBarDrawerToggle? = null
 
@@ -71,6 +76,9 @@ class MainActivity : DaggerAppCompatActivity() {
                 R.id.photos -> {
                     showPhotoView()
                 }
+                R.id.all_contacts -> {
+                    showAllContactsView()
+                }
             }
             closeDrawer()
             true
@@ -86,6 +94,12 @@ class MainActivity : DaggerAppCompatActivity() {
         toolbar.title = getString(R.string.photos)
         replaceFragmentInActivity(photoView, R.id.contentFrame)
     }
+
+    private fun showAllContactsView() {
+        toolbar.title = getString(R.string.all_contacts)
+        replaceFragmentInActivity(allContactsView, R.id.contentFrame)
+    }
+
 
     fun closeDrawer() {
         mBinding.drawerLayout.closeDrawer(Gravity.START)
@@ -134,4 +148,5 @@ class MainActivity : DaggerAppCompatActivity() {
     fun obtainMainViewModel() = obtainViewModel(viewModelFactory, MainViewModel::class.java)
     fun obtainSearchPlaceViewModel() = obtainViewModel(viewModelFactory, SearchPlaceViewModel::class.java)
     fun obtainPhotoViewModel() = obtainViewModel(viewModelFactory, PhotoViewModel::class.java)
+    fun obtainAllContactsViewModel() = obtainViewModel(viewModelFactory, AllContactsViewModel::class.java)
 }

@@ -8,8 +8,6 @@ import com.squareup.picasso.Picasso
 import com.test.testapplication.databinding.RowPlaceBinding
 import com.test.testapplication.model.Result
 import com.test.testapplication.databinding.LoadingViewBinding
-import android.support.v7.widget.LinearLayoutManager
-
 
 class PlaceRvAdapter(val imageLoader: Picasso) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
@@ -40,12 +38,12 @@ class PlaceRvAdapter(val imageLoader: Picasso) : RecyclerView.Adapter<RecyclerVi
 
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, p1: Int) {
-        val result = list[p1]
+        val item = list[p1]
 
         when (getItemViewType(p1)) {
             TYPE_PLACE -> {
                 val viewHolder = holder as ViewHolder
-                viewHolder.bind(result, p1)
+                viewHolder.bind(item, p1)
             }
             TYPE_LOADING -> {
                 val viewHolder = holder as ViewHolderLoading

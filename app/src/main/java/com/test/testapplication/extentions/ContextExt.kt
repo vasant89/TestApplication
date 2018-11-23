@@ -8,6 +8,14 @@ import android.os.Looper
 import android.view.WindowManager
 import android.widget.Toast
 import java.lang.Exception
+import android.support.v4.content.ContextCompat.startActivity
+import android.net.Uri.fromParts
+import android.content.Intent
+import android.net.Uri
+import android.util.TypedValue
+
+
+
 
 fun Context.isInternetAvailable(): Boolean {
     val connectivityManager = getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
@@ -20,6 +28,12 @@ fun Context.showMessage(message: String) {
     handler.post { Toast.makeText(this, message, Toast.LENGTH_LONG).show() }
 }
 
+fun Context.call(mobile: String) {
+    Intent(Intent.ACTION_DIAL).apply {
+        data = Uri.parse(mobile)
+        startActivity(this)
+    }
+}
 
 fun Context.getScreenWidth(): Int {
     val columnWidth: Int
@@ -38,7 +52,7 @@ fun Context.getScreenWidth(): Int {
     return columnWidth
 }
 
-fun Context.copyText(string: String,message: String) {
+fun Context.copyText(string: String, message: String) {
     try {
         val sdk = android.os.Build.VERSION.SDK_INT
         if (sdk < android.os.Build.VERSION_CODES.HONEYCOMB) {
@@ -53,4 +67,11 @@ fun Context.copyText(string: String,message: String) {
     } catch (e: Exception) {
         e.printStackTrace()
     }
+}
+
+fun Context.dpToPx(dp: Int): Int {
+    val r = resources
+    return Math.round(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
+        dp.toFloat(), r.displayMetrics
+    ))
 }

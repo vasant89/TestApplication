@@ -50,8 +50,9 @@ ext {
     rxbindingVersion = '2.1.1'
     dexmakerVersion = '1.2'
 
+    coroutineVersion = "1.0.1"
 //googlePlayService
-    googlePlayService = '15.0.1'
+    googlePlayService = '16.0.0'
 
 // Architecture Components dependencies
     archLifecycleVersion = "1.1.1"

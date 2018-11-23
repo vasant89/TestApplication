@@ -28,7 +28,7 @@ class NetworkModule {
 
     @Singleton
     @Provides
-    fun provideOkhttpClient(cache: Cache): OkHttpClient {
+    fun provideOkHttpClient(cache: Cache): OkHttpClient {
         return OkHttpClient.Builder()
                 .cache(cache)
                 .build()

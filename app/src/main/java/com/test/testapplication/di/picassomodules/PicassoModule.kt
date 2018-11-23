@@ -17,7 +17,7 @@ class PicassoModule {
 
     @Singleton
     @Provides
-    fun provideOkHttp3Downloder(okHttpClient: OkHttpClient): OkHttp3Downloader {
+    fun provideOkHttp3Downloader(okHttpClient: OkHttpClient): OkHttp3Downloader {
         return OkHttp3Downloader(okHttpClient)
 
         /*  if you want that both retrofit and picasso will call through OkHttpClient

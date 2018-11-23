@@ -13,6 +13,7 @@ import javax.inject.Inject
 import android.util.Log
 import com.test.testapplication.extentions.isInternetAvailable
 import com.test.testapplication.extentions.showMessage
+import com.test.testapplication.webservice.ContactService
 import com.test.testapplication.webservice.PhotoService
 import com.test.testapplication.webservice.PlaceService
 import javax.inject.Singleton
@@ -50,12 +51,6 @@ constructor(private val context: Context) {
         .build()
 
 
-    private var retrofitForPhotos: Retrofit = Retrofit.Builder()
-        .client(client)
-        .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-        .addConverterFactory(GsonConverterFactory.create())
-        .baseUrl("http://private-e1b8f4-getimages.apiary-mock.com/")
-        .build()
 
     private var retrofitForGoogle: Retrofit = Retrofit.Builder()
         .client(client)
@@ -64,13 +59,30 @@ constructor(private val context: Context) {
         .baseUrl("https://maps.googleapis.com/maps/api/place/")
         .build()
 
+    private var retrofitForPhotos: Retrofit = Retrofit.Builder()
+        .client(client)
+        .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+        .addConverterFactory(GsonConverterFactory.create())
+        .baseUrl("http://private-e1b8f4-getimages.apiary-mock.com/")
+        .build()
+
+    private var retrofitForContacts: Retrofit = Retrofit.Builder()
+        .client(client)
+        .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+        .addConverterFactory(GsonConverterFactory.create())
+        .baseUrl("https://api.androidhive.info/")
+        .build()
+
     fun createPlaceService(): PlaceService {
         return retrofitForGoogle.create(PlaceService::class.java)
     }
 
-
     fun createPhotoService():PhotoService{
         return retrofitForPhotos.create(PhotoService::class.java)
+    }
+
+    fun createContactService():ContactService{
+        return retrofitForContacts.create(ContactService::class.java)
     }
 
 }
