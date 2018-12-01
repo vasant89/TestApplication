@@ -58,7 +58,7 @@ fun AppCompatActivity.hideKeyboard() {
 fun <T : ViewModel> AppCompatActivity.obtainViewModel(viewModelFactory: ViewModelFactory, viewModelClass: Class<T>) =
     ViewModelProviders.of(this, viewModelFactory).get(viewModelClass)
 
-var alert: AlertDialog? = null
+var alertGps: AlertDialog? = null
 
 fun AppCompatActivity.showGPSDisabledAlertToUser() {
     val locationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
@@ -66,7 +66,7 @@ fun AppCompatActivity.showGPSDisabledAlertToUser() {
     if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
         Log.e("ActivityExt", "GPS is enabled.")
     } else {
-        if (alert == null) {
+        if (alertGps == null) {
             val alertDialogBuilder = AlertDialog.Builder(this)
 
             alertDialogBuilder.setMessage("GPS is disabled in your device. You have to enable gps app needs your current location.")
@@ -80,18 +80,20 @@ fun AppCompatActivity.showGPSDisabledAlertToUser() {
 
             alertDialogBuilder.setNegativeButton("Cancel") { dialog, id -> dialog.cancel() }
 
-            alert = alertDialogBuilder.create()
+            alertGps = alertDialogBuilder.create()
         }
 
-        if (!alert!!.isShowing) {
-            alert?.show()
+        if (!alertGps!!.isShowing) {
+            alertGps?.show()
         }
     }
 }
 
+var alertBackButton: AlertDialog? = null
+
 fun AppCompatActivity.showActivityClosingDialog() {
 
-    if (alert == null) {
+    if (alertBackButton == null) {
         val alertDialogBuilder = AlertDialog.Builder(this)
 
         alertDialogBuilder.setMessage("Do you want to exit from application")
@@ -105,10 +107,10 @@ fun AppCompatActivity.showActivityClosingDialog() {
 
         alertDialogBuilder.setNegativeButton("Cancel") { dialog, id -> dialog.cancel() }
 
-        alert = alertDialogBuilder.create()
+        alertBackButton = alertDialogBuilder.create()
     }
 
-    if (!alert!!.isShowing) {
-        alert?.show()
+    if (!alertBackButton!!.isShowing) {
+        alertBackButton?.show()
     }
 }
