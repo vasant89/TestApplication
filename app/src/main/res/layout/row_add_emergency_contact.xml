@@ -37,7 +37,7 @@
     <de.hdodenhof.circleimageview.CircleImageView
         android:layout_width="32dp"
         android:layout_height="32dp"
-        android:src="@{safeUnbox(contact.isEmergencyContact) ? @drawable/ic_add_contact : @drawable/ic_remove_contact}"
+        android:src="@{safeUnbox(contact.isEmergencyContact) ? @drawable/ic_remove_contact : @drawable/ic_add_contact}"
         android:id="@+id/iv_add_remove"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginEnd="16dp" android:layout_marginRight="16dp" android:layout_marginTop="8dp"

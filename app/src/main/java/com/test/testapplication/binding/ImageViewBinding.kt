@@ -13,14 +13,25 @@ object ImageViewBinding {
     @BindingAdapter("imageUrl", "picasso")
     @JvmStatic
     fun showImage(imageView: ImageView, imageUrl: String?, picasso: Picasso) {
-        Log.e(TAG, imageUrl.toString())
+
         if (!imageUrl.isNullOrEmpty()) {
+
+            val oldValue = "http"
+            val newValue = "https"
+
+            val output = if(imageUrl!!.startsWith("http:")){
+                imageUrl.replaceFirst(oldValue, newValue)
+            }else{
+                imageUrl
+            }
+
             picasso.setIndicatorsEnabled(false)
-            picasso.load(imageUrl)
+            picasso.load(output)
                 .resize(600, 200)
                 .centerInside()
                 .into(imageView)
         }
+        Log.e(TAG, imageUrl.toString())
     }
 
     @BindingAdapter("circleImage", "picasso")

@@ -63,7 +63,7 @@ constructor(private val context: Context) {
         .client(client)
         .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
         .addConverterFactory(GsonConverterFactory.create())
-        .baseUrl("http://private-e1b8f4-getimages.apiary-mock.com/")
+        .baseUrl("https://private-e1b8f4-getimages.apiary-mock.com/")
         .build()
 
     private var retrofitForContacts: Retrofit = Retrofit.Builder()

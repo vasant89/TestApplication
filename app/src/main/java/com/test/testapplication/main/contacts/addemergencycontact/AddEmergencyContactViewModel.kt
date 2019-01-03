@@ -56,7 +56,7 @@ class AddEmergencyContactViewModel(
         val count = contactList.filter { it.isEmergencyContact }.count()
         contact.isEmergencyContact = !contact.isEmergencyContact
         if(contact.isEmergencyContact){
-            if(count <= 10){
+            if(count < 10){
                 this.repository.updateContact(contact)
                 this.isMax.set(false)
             }else{
